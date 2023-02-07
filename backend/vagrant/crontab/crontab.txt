@@ -1,0 +1,21 @@
+# 数据同步
+*/1 * * * * (flock -xn /tmp/task_create.lock -c 'php /var/www/label-server/yii task/create > task_create.log 2>&1 &')
+
+# 数据导出
+*/1 * * * * (flock -xn /tmp/export_exec.lock -c 'php /var/www/label-server/yii export/exec > export_exec.log 2>&1 &')
+
+# 数据统计
+0 0 * * * (flock -xn /tmp/statistic_exec.lock -c 'php /var/www/label-server/yii statistics-process/exec > statistic_exec.log 2>&1 &')
+
+# 实时统计队列
+*/1 * * * * (flock -xn /tmp/statistic_queue.lock -c 'php /var/www/label-server/yii queue/run  --verbose=1 --color=0 > statistic_queue.log 2>&1 &')
+
+# 导入待验收的任务
+*/1 * * * * (flock -xn /tmp/taskinfo_import.lock -c 'php /var/www/label-server/yii task-info-import > taskinfo_import.log 2>&1 &')
+
+# 检测任务结果
+1 0 * * * (flock -xn /tmp/check_result.lock -c 'php /var/www/label-server/yii check-result/check-result > check_result.log 2>&1 &')
+
+# 任务批量变更环节
+*/1 * * * * (flock -xn /tmp/task_status_change.lock -c 'php /var/www/label-server/yii task-status-change > task_status_change.log 2>&1 &')
+

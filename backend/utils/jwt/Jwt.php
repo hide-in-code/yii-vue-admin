@@ -14,14 +14,14 @@ class Jwt extends Base
      *
      * @var string
      */
-    public string $alg = 'HS256';
+    public  $alg = 'HS256';
 
     /**
      * 有效时间
      *
      * @var int
      */
-    public int $expire = 86400;
+    public  $expire = 86400;
 
     /**
      * 要加密的数据 eg.
@@ -31,12 +31,12 @@ class Jwt extends Base
      *
      * @var array
      */
-    public array $claims = [];
+    public  $claims = [];
 
     /**
      * @var string
      */
-    public string $identifiedBy = 'n1Yco9ClURcwLPa5';
+    public  $identifiedBy = 'n1Yco9ClURcwLPa5';
 
     /**
      * Jwt constructor.

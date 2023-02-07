@@ -11,7 +11,7 @@ class Base extends BaseObject
     /**
      * @var array $this
      */
-    protected static array $_instance = [];
+    protected static $_instance = [];
 
     /**
      * 获取实例

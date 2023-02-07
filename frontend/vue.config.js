@@ -17,6 +17,19 @@ console.log(process.env.API_HOST)
 const port = process.env.port || process.env.npm_config_port || 9528 // dev port
 var openInEditor = require('launch-editor-middleware')
 // All configuration item explanations can be find in https://cli.vuejs.org/config/
+
+// let aaa = {
+//   [process.env.VUE_APP_BASE_API]: {
+//     target: process.env.API_HOST  + ':' + process.env.API_PORT + '/',
+//     changeOrigin: true,
+//     pathRewrite: {
+//       ['^' + process.env.VUE_APP_BASE_API]: ''
+//     }
+//   }
+// }
+// console.log(aaa)
+
+
 module.exports = {
   /**
    * You will need to set publicPath if you plan to deploy your site under a sub path,
@@ -33,6 +46,7 @@ module.exports = {
   devServer: {
     port: port,
     open: true,
+    host: "127.0.0.1",
 		before (app) {
 			app.use('/__open-in-editor', openInEditor())
 		},
@@ -41,14 +55,23 @@ module.exports = {
       errors: true
     },
     proxy: {
-      [process.env.VUE_APP_BASE_API]: {
-        target: process.env.API_HOST  + ':' + process.env.API_PORT + '/',
-        changeOrigin: true,
-        pathRewrite: {
-          ['^' + process.env.VUE_APP_BASE_API]: ''
-        }
+      "/api":{
+        "target":"http://127.0.0.1:8080",
+        "changeOrigin":true,
+        pathRewrite: { '^/api': '' },
+        "ws":true
       }
-    },
+    }
+
+    // proxy: {
+    //   [process.env.VUE_APP_BASE_API]: {
+    //     target: process.env.API_HOST  + ':' + process.env.API_PORT + '/',
+    //     changeOrigin: true,
+    //     pathRewrite: {
+    //       ['^' + process.env.VUE_APP_BASE_API]: ''
+    //     }
+    //   }
+    // },
     // after: require('./mock/mock-server.js')
     // before: require('./mock/mock-server.js')
   },

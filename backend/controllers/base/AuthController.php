@@ -23,14 +23,14 @@ class AuthController extends BaseController
      *
      * @var array
      */
-    public array $optional = [];
+    public $optional = [];
 
     /**
      * 不验证权限接口
      *
      * @var array
      */
-    private array $_optional = [
+    private $_optional = [
         '/auth/user/login',
         '/auth/user/logout',
         '/auth/user/get-token',

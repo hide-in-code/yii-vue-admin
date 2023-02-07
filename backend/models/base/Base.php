@@ -5,7 +5,7 @@ namespace app\models\base;
 class Base extends \yii\db\ActiveRecord
 {
 
-    protected bool $timeStamp = false; // 更新日期是否为时间戳
+    protected $timeStamp = false; // 更新日期是否为时间戳
 
     /**
      * @param bool $insert

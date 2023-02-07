@@ -23,21 +23,21 @@ class AppLogTarget extends FileTarget
      *
      * @var bool
      */
-    public bool $microtime = true;
+    public $microtime = true;
 
     /**
      * 文件权限
      *
      * @var int
      */
-    public int $fileMode = 0777;
+    public $fileMode = 0777;
 
     /**
      * 使用rename操作日志文件切换
      *
      * @var bool
      */
-    public bool $rotateByCopy = false;
+    public $rotateByCopy = false;
 
     /**
      * 格式化日志格式

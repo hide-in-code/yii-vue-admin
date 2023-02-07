@@ -1,9 +1,46 @@
 version: '2'
 services:
   php:
-    image: yiisoftware/yii2-php:7.4-apache
+    image: 2969921454/utopilot-label
+    container_name: train-server
+    depends_on:
+      - db
+      - redis
+      - es
     volumes:
       - ~/.composer-docker/cache:/root/.composer/cache:delegated
-      - ./:/app:delegated
+      - ./:/var/www/train-server:delegated
+      - ../frontend/:/var/www/train-front:delegated
+      - ./vagrant/nginx/utopilot.conf:/etc/nginx/sites-enabled/dataset.conf
+      - ./vagrant/php/php7.ini:/etc/php/7.3/fpm/php.ini
+    command: /bin/bash -c "rm -rf /etc/supervisor/conf.d/testin-cron.conf && /usr/local/bin/container start_supervisord"
     ports:
-      - '8000:80'
+      - '80:80'
+      - '8080:8080'
+    environment:
+      PHPFPM_MAX_CHILDREN: 64
+      PHPFPM_START_SERVERS: 20
+      PHPFPM_MIN_SPARE_SERVERS: 20
+      PHPFPM_MAX_SPARE_SERVERS: 64
+      START_CRON: "true"
+    restart: always
+  db:
+    image: mysql:5.7
+    restart: always
+    container_name: train-db
+    command: --default-authentication-plugin=mysql_native_password
+    volumes:
+      - "./data/db_data:/var/lib/mysql"
+      - "./data/init:/docker-entrypoint-initdb.d/"
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+  redis:
+    image: redis
+    container_name: train-redis
+    restart: always
+    ports:
+      - 6379:6379
+    volumes:
+      - ./data/redis_data:/data:rw

@@ -3,9 +3,9 @@
 return [
     'db' => [
         'class'    => 'yii\db\Connection',
-        'dsn'      => 'mysql:host=mysql;dbname=fly',
+        'dsn'      => 'mysql:host=db;dbname=train',
         'username' => 'root',
-        'password' => '123456',
+        'password' => 'root',
         'charset'  => 'utf8',
         // Schema cache options (for production environment)
         //'enableSchemaCache' => true,
