@@ -26,14 +26,14 @@ class Client extends Base implements ClientInterface
      *
      * @var string
      */
-    public string $host = '';
+    public $host = '';
 
     /**
      * 接口请求的端口号
      *
      * @var string
      */
-    public string $port = '';
+    public $port = '';
 
 
     public function __construct($config = [])

@@ -8,6 +8,7 @@
 namespace app\commands;
 
 use yii\console\Controller;
+use Maclof\Kubernetes\Client;
 
 /**
  * This command echoes the first argument that you have entered.
@@ -30,6 +31,18 @@ class HelloController extends Controller
     {
 
 
+    }
+
+
+    public function actionKcl($configFile)
+    {
+        $config = Client::parseKubeConfigFile($configFile);
+
+        $client = new Client($config);
+
+        $pods = $client->pods()->find();
+
+        var_dump($pods);
     }
 
 }
